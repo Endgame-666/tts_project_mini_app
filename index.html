@@ -63,7 +63,7 @@
             console.log("Отправка данных в Telegram:", cat);
             if (window.Telegram.WebApp) {
                 window.Telegram.WebApp.sendData(cat);
-                window.Telegram.WebApp.close(); // Закрываем мини-апп после выбора
+                window.Telegram.WebApp.hide(); // Закрываем мини-апп после выбора
             } else {
                 alert("Ошибка: WebApp API не доступен");
             }
