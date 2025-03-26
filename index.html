@@ -43,35 +43,37 @@
 
     <div class="container">
         <img src="pictures/белый.jpg" alt="Белый котик">
-        <button onclick="selectCat('Белый котик')">Выбрать</button>
+        <button onclick="sendData('Белый котик')">Выбрать</button>
     </div>
     <div class="container">
         <img src="pictures/черный.jpg" alt="Черный котик">
-        <button onclick="selectCat('Черный котик')">Выбрать</button>
+        <button onclick="sendData('Черный котик')">Выбрать</button>
     </div>
     <div class="container">
         <img src="pictures/рыжий.jpg" alt="Рыжий котик">
-        <button onclick="selectCat('Рыжий котик')">Выбрать</button>
+        <button onclick="sendData('Рыжий котик')">Выбрать</button>
     </div>
     <div class="container">
         <img src="pictures/разноцветный.jpg" alt="Разноцветный котик">
-        <button onclick="selectCat('Разноцветный котик')">Выбрать</button>
+        <button onclick="sendData('Разноцветный котик')">Выбрать</button>
     </div>
 
     <script>
-        // Добавляем инициализацию WebApp
         Telegram.WebApp.ready();
 
-        function selectCat(catName) {
-            // Проверяем работу WebApp
-            console.log('Sending:', catName);
-
-            // Отправляем данные в формате JSON
-            Telegram.WebApp.sendData(JSON.stringify({
-                cat: catName,
+        function sendData(catType) {
+            const data = {
+                cat: catType,
                 timestamp: Date.now()
-            }));
+            };
 
+            // Для отладки в браузере
+            if (!Telegram.WebApp.initData) {
+                console.log('Тестовый режим. Данные:', data);
+                return;
+            }
+
+            Telegram.WebApp.sendData(JSON.stringify(data));
             Telegram.WebApp.close();
         }
     </script>
