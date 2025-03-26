@@ -59,8 +59,19 @@
     </div>
 
     <script>
+        // Добавляем инициализацию WebApp
+        Telegram.WebApp.ready();
+
         function selectCat(catName) {
-            Telegram.WebApp.sendData(catName);
+            // Проверяем работу WebApp
+            console.log('Sending:', catName);
+
+            // Отправляем данные в формате JSON
+            Telegram.WebApp.sendData(JSON.stringify({
+                cat: catName,
+                timestamp: Date.now()
+            }));
+
             Telegram.WebApp.close();
         }
     </script>
