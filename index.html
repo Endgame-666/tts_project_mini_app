@@ -60,6 +60,7 @@
 
     <script>
         function sendChoice(cat) {
+            console.log("Отправка данных в Telegram:", cat);
             if (window.Telegram.WebApp) {
                 window.Telegram.WebApp.sendData(cat);
                 window.Telegram.WebApp.close(); // Закрываем мини-апп после выбора
