@@ -45,12 +45,12 @@
     <script src="https://telegram.org/js/telegram-web-app.js?56"></script>
     <script>
         let tg = window.Telegram.WebApp;
-        ready.addEventListener("click", () =>{
-            let name = tg.initDataUnsafe.user.first_name;
-            let last_name = tg.initDataUnsafe.user.last_name;
+        ready.addEventListener("click", () => {
+            // let name = tg.initDataUnsafe.user.id;
+            // let last_name = tg.initDataUnsafe.user.last_name;
             let data ={
-                name: name,
-                last_name: last_name
+                name:  "ntttcn",
+                last_name: "пример теста"
             }
             tg.sendData(JSON.stringify(data));
             tg.close();
