@@ -62,18 +62,14 @@
         Telegram.WebApp.ready();
 
         function sendData(catType) {
-            const data = {
-                cat: catType,
-                timestamp: Date.now()
-            };
+            const data = JSON.stringify({ cat: catType });
 
-            // Для отладки в браузере
             if (!Telegram.WebApp.initData) {
                 console.log('Тестовый режим. Данные:', data);
                 return;
             }
 
-            Telegram.WebApp.sendData(JSON.stringify(data));
+            Telegram.WebApp.sendData(data); // Отправляем JSON строку
             Telegram.WebApp.close();
         }
     </script>
