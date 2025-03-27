@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Выбор картинок</title>
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <title>Выбор котика</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -34,44 +33,28 @@
             border-radius: 5px;
         }
         button:hover {
-            background-color: #87CEEB;
+            background-color: #4682B4;
         }
     </style>
 </head>
 <body>
-    <h2>Выберите изображение</h2>
-
-    <div class="container">
-        <img src="pictures/белый.jpg" alt="Белый котик">
-        <button onclick="sendData('Белый котик')">Выбрать</button>
+    <div id="main">
+        <h1> Нажать на кнопку</h1>
+        <button id="ready">Нажать!</button>
     </div>
-    <div class="container">
-        <img src="pictures/черный.jpg" alt="Черный котик">
-        <button onclick="sendData('Черный котик')">Выбрать</button>
-    </div>
-    <div class="container">
-        <img src="pictures/рыжий.jpg" alt="Рыжий котик">
-        <button onclick="sendData('Рыжий котик')">Выбрать</button>
-    </div>
-    <div class="container">
-        <img src="pictures/разноцветный.jpg" alt="Разноцветный котик">
-        <button onclick="sendData('Разноцветный котик')">Выбрать</button>
-    </div>
-
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script>
-        Telegram.WebApp.ready();
-
-        function sendData(catType) {
-            const data = JSON.stringify({ cat: catType });
-
-            if (!Telegram.WebApp.initData) {
-                console.log('Тестовый режим. Данные:', data);
-                return;
+        let tg = window.Telegram.WebApp;
+        ready.addEventListener("click", () =>{
+            let name = tg.initDataUnsafe.user.first_name;
+            let last_name = tg.initDataUnsafe.user.last_name;
+            let data ={
+                name: name,
+                last_name: last_name
             }
-
-            Telegram.WebApp.sendData(data); // Отправляем JSON строку
-            Telegram.WebApp.close();
-        }
+            tg.sendData(JSON.stringify(data));
+            tg.close();
+        });
     </script>
 </body>
 </html>
