@@ -5,8 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Выбор персонажа</title>
     <style>
-
-
+        /* Стили остаются без изменений из предыдущей версии */
         body {
             font-family: 'Arial', sans-serif;
             margin: 0;
@@ -138,7 +137,8 @@
 </head>
 <body>
     <!-- Карточка Pudge -->
-    <div class="character-card" data-character="pudge">
+    <div class="character-card" data-character-id="1">
+        <audio id="audio-1" src="audio/Пудж.wav"></audio>
         <div class="character-header">
             <img src="pictures/пудж.jpg" class="character-image" alt="Pudge">
             <div class="character-text">
@@ -156,7 +156,8 @@
     </div>
 
     <!-- Карточка Шрека -->
-    <div class="character-card" data-character="shrek">
+    <div class="character-card" data-character-id="2">
+        <audio id="audio-2" src="audio/Шрек.wav"></audio>
         <div class="character-header">
             <img src="pictures/щрек.jpg" class="character-image" alt="Шрек">
             <div class="character-text">
@@ -175,13 +176,16 @@
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script>
         const tg = window.Telegram.WebApp;
+        let currentAudio = null;
 
         // Обработчики для кнопок выбора
         document.querySelectorAll('.btn-select').forEach(button => {
             button.addEventListener('click', function() {
                 const characterCard = this.closest('.character-card');
-                const characterName = characterCard.getAttribute('data-character');
-                tg.sendData(JSON.stringify({ character: characterName }));
+                const characterId = characterCard.getAttribute('data-character-id');
+                tg.sendData(JSON.stringify({
+                    characterId: parseInt(characterId)
+                }));
                 tg.close();
             });
         });
@@ -189,16 +193,32 @@
         // Обработчики для кнопок воспроизведения
         document.querySelectorAll('.btn-play').forEach(button => {
             button.addEventListener('click', function() {
-                this.classList.toggle('playing');
-                const isPlaying = this.classList.contains('playing');
+                const characterCard = this.closest('.character-card');
+                const characterId = characterCard.getAttribute('data-character-id');
+                const audio = characterCard.querySelector('audio');
 
-                if(isPlaying) {
-                    // Логика начала воспроизведения
-                    console.log('Начало воспроизведения');
-                } else {
-                    // Логика паузы
-                    console.log('Пауза');
+                // Останавливаем предыдущее аудио
+                if(currentAudio && currentAudio !== audio) {
+                    currentAudio.pause();
+                    const prevButton = currentAudio.parentElement.querySelector('.btn-play');
+                    prevButton.classList.remove('playing');
                 }
+
+                if(audio.paused) {
+                    audio.play();
+                    this.classList.add('playing');
+                    currentAudio = audio;
+                } else {
+                    audio.pause();
+                    this.classList.remove('playing');
+                    currentAudio = null;
+                }
+
+                // Обработчик окончания воспроизведения
+                audio.onended = () => {
+                    this.classList.remove('playing');
+                    currentAudio = null;
+                };
             });
         });
     </script>
