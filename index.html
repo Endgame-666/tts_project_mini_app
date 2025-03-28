@@ -3,57 +3,144 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Выбор котика</title>
+    <title>Выбор персонажа</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             display: flex;
-            justify-content: center;
-            align-items: center;
             flex-direction: column;
-            margin-top: 20px;
-            background-color: lightblue;
-        }
-        .container {
-            display: flex;
             align-items: center;
-            margin-bottom: 15px;
+            padding: 20px;
+            background-color: lightblue;
+            gap: 25px;
         }
-        img {
-            width: 200px;
+
+        .character-card {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            width: 90%;
+            max-width: 600px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .card-content {
+            display: flex;
+            gap: 25px;
+            align-items: flex-start;
+        }
+
+        .character-image {
+            width: 220px;
             height: auto;
-            margin-right: 15px;
+            border-radius: 10px;
         }
-        button {
-            padding: 10px;
+
+        .character-info {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .character-title {
+            margin: 0;
+            align-self: flex-end;
+            color: #333;
+            font-size: 1.5em;
+        }
+
+        .character-description {
+            color: #666;
+            font-size: 0.9em;
+            line-height: 1.4;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+            margin-top: auto;
+        }
+
+        .btn {
+            padding: 8px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .btn-play {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .btn-select {
             background-color: #87CEEB;
             color: white;
-            border: none;
-            cursor: pointer;
-            border-radius: 5px;
         }
-        button:hover {
-            background-color: #4682B4;
+
+        .watermark {
+            color: #999;
+            font-size: 0.8em;
+            margin-bottom: 5px;
         }
     </style>
 </head>
 <body>
-    <div id="main">
-        <h1> Нажать на кнопку</h1>
-        <button id="ready">Нажать!</button>
+    <!-- Карточка Шрека -->
+    <div class="character-card">
+        <div class="watermark">НЕ ДЛЯ КОММЕРЧЕСКОГО ИСПОЛЬЗОВАНИЯ</div>
+        <div class="card-content">
+            <img src="pictures/щрек.jpg" class="character-image" alt="Шрек">
+            <div class="character-info">
+                <h2 class="character-title">Шрек</h2>
+                <p class="character-description">
+                    Любимый голос из детства.<br>
+                    Известный всем по мультфильму<br>
+                    Шрек.
+                </p>
+                <div class="button-group">
+                    <button class="btn btn-play">▶ Плей</button>
+                    <button class="btn btn-select">Выбрать</button>
+                </div>
+            </div>
+        </div>
     </div>
+
+    <!-- Карточка Осла -->
+    <div class="character-card">
+        <div class="watermark">НЕ ДЛЯ КОММЕРЧЕСКОГО ИСПОЛЬЗОВАНИЯ</div>
+        <div class="card-content">
+            <img src="pictures/пудж.jpg" class="character-image" alt="Осёл">
+            <div class="character-info">
+                <h2 class="character-title">Осёл</h2>
+                <p class="character-description">
+                    Любимый голос из детства.<br>
+                    Известный всем по мультфильму<br>
+                    Шрек.
+                </p>
+                <div class="button-group">
+                    <button class="btn btn-play">▶ Плей</button>
+                    <button class="btn btn-select">Выбрать</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="https://telegram.org/js/telegram-web-app.js?56"></script>
     <script>
         let tg = window.Telegram.WebApp;
-        ready.addEventListener("click", () => {
-            // let name = tg.initDataUnsafe.user.id;
-            // let last_name = tg.initDataUnsafe.user.last_name;
-            let data ={
-                name:  "ntttcn",
-                last_name: "пример теста"
-            }
-            tg.sendData(JSON.stringify(data));
-            tg.close();
+        document.querySelectorAll('.btn-select').forEach(button => {
+            button.addEventListener("click", () => {
+                let data = {
+                    name: "ntttcn",
+                    last_name: "пример теста"
+                }
+                tg.sendData(JSON.stringify(data));
+                tg.close();
+            });
         });
     </script>
 </body>
