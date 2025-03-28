@@ -5,29 +5,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Выбор персонажа</title>
     <style>
+
+
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Arial', sans-serif;
             margin: 0;
             padding: 15px;
-            background-color: #f5f5f5;
+            background-color: #F8F9FA;
             display: flex;
             flex-direction: column;
             align-items: center;
         }
 
         .character-card {
-            background: white;
-            border-radius: 12px;
+            background: #FFFFFF;
+            border-radius: 16px;
             overflow: hidden;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            margin-bottom: 20px;
-            max-width: 350px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            margin-bottom: 25px;
+            max-width: 360px;
             width: 100%;
+            transition: transform 0.2s;
+        }
+
+        .character-card:hover {
+            transform: translateY(-3px);
         }
 
         .character-header {
             display: flex;
-            padding: 20px 20px 5px 20px; /* Изменено нижнее расстояние */
+            padding: 20px 20px 5px 20px;
             gap: 15px;
             align-items: center;
             justify-content: center;
@@ -36,71 +43,96 @@
         .character-image {
             width: 120px;
             height: 120px;
-            border-radius: 8px;
+            border-radius: 12px;
             object-fit: cover;
             flex-shrink: 0;
+            border: 3px solid #2C3E50;
         }
 
         .character-text {
             flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
         .character-name {
             margin: 0;
-            font-size: 1.4em;
-            color: #333;
-            font-weight: bold;
+            font-size: 1.5em;
+            color: #2C3E50;
+            font-weight: 700;
+            letter-spacing: -0.5px;
         }
 
         .character-description {
-            color: #666;
-            font-size: 0.9em;
-            line-height: 1.4;
-            margin: 0;
+            color: #7F8C8D;
+            font-size: 0.92em;
+            line-height: 1.5;
+            margin: 8px 0 0 0;
         }
 
         .character-footer {
             display: flex;
             padding: 15px;
             justify-content: center;
+            background: rgba(236, 240, 241, 0.5);
+            margin: 15px 10px 10px;
+            border-radius: 8px;
         }
 
         .btn-play {
-            background-color: #4CAF50;
+            background-color: #27AE60;
             color: white;
             border: none;
-            padding: 10px 15px;
-            border-radius: 6px;
+            padding: 12px 18px;
+            border-radius: 8px;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-right: 10px;
-            transition: background-color 0.3s;
-            font-size: 1.2em;
-        }
-
-        .btn-play:hover {
-            background-color: #3e8e41;
+            margin-right: 12px;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            min-width: 60px;
+            position: relative;
         }
 
         .btn-play::after {
             content: "▶";
+            font-size: 1.1em;
+            transition: all 0.3s;
+            position: absolute;
+        }
+
+        .btn-play.playing {
+            background-color: #E67E22;
+        }
+
+        .btn-play.playing::after {
+            content: "❚❚";
+            letter-spacing: 1px;
+            transform: translateX(1px);
+        }
+
+        .btn-play:hover {
+            background-color: #219651;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
         }
 
         .btn-select {
-            background-color: #3498db;
+            background-color: #2C3E50;
             color: white;
             border: none;
-            padding: 10px 15px;
-            border-radius: 6px;
+            padding: 12px 18px;
+            border-radius: 8px;
             cursor: pointer;
             flex-grow: 1;
-            transition: background-color 0.3s;
+            transition: all 0.3s;
+            font-weight: 600;
         }
 
         .btn-select:hover {
-            background-color: #2980b9;
+            background-color: #34495E;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
         }
     </style>
 </head>
@@ -112,7 +144,8 @@
             <div class="character-text">
                 <h2 class="character-name">Pudge</h2>
                 <p class="character-description">
-                    Голос популярного и всеми любимого персонажа из Dota 2
+                    Голос самого популярного<br>
+                    персонажа игры Dota 2
                 </p>
             </div>
         </div>
@@ -129,7 +162,7 @@
             <div class="character-text">
                 <h2 class="character-name">Шрек</h2>
                 <p class="character-description">
-                    Голос популярного и всеми любимого персонажа из мультфильма
+                    Голос популярного и всеми любимого персонажа из мультфильма Шрек
                 </p>
             </div>
         </div>
@@ -143,6 +176,7 @@
     <script>
         const tg = window.Telegram.WebApp;
 
+        // Обработчики для кнопок выбора
         document.querySelectorAll('.btn-select').forEach(button => {
             button.addEventListener('click', function() {
                 const characterCard = this.closest('.character-card');
@@ -152,9 +186,19 @@
             });
         });
 
+        // Обработчики для кнопок воспроизведения
         document.querySelectorAll('.btn-play').forEach(button => {
             button.addEventListener('click', function() {
-                alert('Воспроизведение голоса персонажа');
+                this.classList.toggle('playing');
+                const isPlaying = this.classList.contains('playing');
+
+                if(isPlaying) {
+                    // Логика начала воспроизведения
+                    console.log('Начало воспроизведения');
+                } else {
+                    // Логика паузы
+                    console.log('Пауза');
+                }
             });
         });
     </script>
