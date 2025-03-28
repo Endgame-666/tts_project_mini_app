@@ -10,88 +10,92 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 20px;
+            padding: 15px;
             background-color: lightblue;
-            gap: 25px;
+            gap: 15px;
         }
 
         .character-card {
             background: white;
-            border-radius: 15px;
-            padding: 20px;
-            width: 90%;
-            max-width: 600px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            border-radius: 12px;
+            padding: 12px;
+            width: 100%;
+            max-width: 500px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
         }
 
         .card-content {
             display: flex;
-            gap: 25px;
-            align-items: flex-start;
+            gap: 15px;
+            align-items: center;
         }
 
         .character-image {
-            width: 220px;
-            height: auto;
-            border-radius: 10px;
+            width: 80px;
+            height: 80px;
+            border-radius: 8px;
+            object-fit: cover;
         }
 
         .character-info {
             flex: 1;
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 8px;
         }
 
         .character-title {
             margin: 0;
-            align-self: flex-end;
             color: #333;
-            font-size: 1.5em;
+            font-size: 1.2em;
         }
 
         .character-description {
             color: #666;
-            font-size: 0.9em;
-            line-height: 1.4;
+            font-size: 0.85em;
+            line-height: 1.3;
         }
 
         .button-group {
             display: flex;
-            gap: 10px;
-            justify-content: flex-end;
-            margin-top: auto;
+            justify-content: space-between;
+            width: 100%;
+            margin-top: 5px;
         }
 
         .btn {
-            padding: 8px 20px;
+            padding: 8px 12px;
             border: none;
-            border-radius: 5px;
+            border-radius: 6px;
             cursor: pointer;
-            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .btn-play {
             background-color: #4CAF50;
+            width: 40px;
+            padding: 8px;
+        }
+
+        .btn-play::after {
+            content: "▶";
             color: white;
+            font-size: 14px;
         }
 
         .btn-select {
             background-color: #87CEEB;
             color: white;
-        }
-
-        .watermark {
-            color: #999;
-            font-size: 0.8em;
-            margin-bottom: 5px;
+            flex-grow: 1;
+            margin-left: 10px;
         }
     </style>
 </head>
 <body>
     <!-- Карточка Шрека -->
     <div class="character-card">
-        <div class="watermark">НЕ ДЛЯ КОММЕРЧЕСКОГО ИСПОЛЬЗОВАНИЯ</div>
         <div class="card-content">
             <img src="pictures/щрек.jpg" class="character-image" alt="Шрек">
             <div class="character-info">
@@ -102,7 +106,7 @@
                     Шрек.
                 </p>
                 <div class="button-group">
-                    <button class="btn btn-play">▶ Плей</button>
+                    <button class="btn btn-play"></button>
                     <button class="btn btn-select">Выбрать</button>
                 </div>
             </div>
@@ -111,7 +115,6 @@
 
     <!-- Карточка Осла -->
     <div class="character-card">
-        <div class="watermark">НЕ ДЛЯ КОММЕРЧЕСКОГО ИСПОЛЬЗОВАНИЯ</div>
         <div class="card-content">
             <img src="pictures/пудж.jpg" class="character-image" alt="Осёл">
             <div class="character-info">
@@ -122,7 +125,7 @@
                     Шрек.
                 </p>
                 <div class="button-group">
-                    <button class="btn btn-play">▶ Плей</button>
+                    <button class="btn btn-play"></button>
                     <button class="btn btn-select">Выбрать</button>
                 </div>
             </div>
