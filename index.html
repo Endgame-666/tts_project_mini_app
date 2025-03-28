@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Выбор персонажа</title>
     <style>
-        /* Стили остаются без изменений из предыдущей версии */
         body {
             font-family: 'Arial', sans-serif;
             margin: 0;
@@ -306,7 +305,21 @@
         const tg = window.Telegram.WebApp;
         let currentAudio = null;
 
-        // Обработчики для кнопок выбора
+        // Обработчик закрытия мини-приложения
+        tg.onEvent('viewportChanged', event => {
+            if (!event.isStateStable) {
+                tg.sendData(JSON.stringify({characterId: 0}));
+            }
+        });
+    
+        // Дублирующая проверка при закрытии вкладки
+        window.addEventListener('beforeunload', () => {
+            if (!tg.isClosingConfirmationEnabled) {
+                tg.sendData(JSON.stringify({characterId: 0}));
+            }
+        });
+
+        // Остальной код без изменений
         document.querySelectorAll('.btn-select').forEach(button => {
             button.addEventListener('click', function() {
                 const characterCard = this.closest('.character-card');
@@ -318,14 +331,12 @@
             });
         });
 
-        // Обработчики для кнопок воспроизведения
         document.querySelectorAll('.btn-play').forEach(button => {
             button.addEventListener('click', function() {
                 const characterCard = this.closest('.character-card');
                 const characterId = characterCard.getAttribute('data-character-id');
                 const audio = characterCard.querySelector('audio');
 
-                // Останавливаем предыдущее аудио
                 if(currentAudio && currentAudio !== audio) {
                     currentAudio.pause();
                     const prevButton = currentAudio.parentElement.querySelector('.btn-play');
@@ -342,7 +353,7 @@
                     currentAudio = null;
                 }
 
-                // Обработчик окончания воспроизведения
+
                 audio.onended = () => {
                     this.classList.remove('playing');
                     currentAudio = null;
