@@ -144,7 +144,7 @@
 
         .favorites-header {
             display: flex;
-            justify-content: center; /* Центрирование по горизонтали */
+            justify-content: center;
             align-items: center;
             margin-bottom: 15px;
             padding: 0 10px;
@@ -155,19 +155,19 @@
             background: linear-gradient(90deg, #E67E22, #FFA500);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            font-size: 1.6em; /* Увеличенный размер шрифта */
+            font-size: 1.6em;
             margin: 0;
             padding: 0 15px;
-            text-align: center; /* Центрирование текста */
+            text-align: center;
             transition: transform 0.3s;
-            font-weight: 600; /* Полужирное начертание */
-            text-transform: uppercase; /* Опционально: заглавные буквы */
-            letter-spacing: 0.5px; /* Разрежение букв */
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .favorites-title:hover {
-            transform: scale(1.05); /* Усиленная анимация */
-            text-shadow: 0 2px 4px rgba(230, 126, 34, 0.2); /* Добавим тень */
+            transform: scale(1.05);
+            text-shadow: 0 2px 4px rgba(230, 126, 34, 0.2);
         }
 
         .favorite-card {
