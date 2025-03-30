@@ -2,7 +2,6 @@ const tg = window.Telegram.WebApp;
 let currentAudio = null;
 let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
 
-// Обновление секции избранных
 function updateFavorites() {
     const favoritesContainer = document.querySelector('.favorites-scroll');
     const favoritesSection = document.getElementById('favorites-section');
@@ -23,7 +22,6 @@ function updateFavorites() {
     }
 }
 
-// Создание карточки для избранного
 function createFavoriteCard(originalCard) {
     const card = document.createElement('div');
     card.className = 'favorite-card';
@@ -35,7 +33,6 @@ function createFavoriteCard(originalCard) {
     const name = originalCard.querySelector('.character-name').cloneNode(true);
     name.className = 'favorite-name';
 
-    // Добавляем кнопку выбора
     const selectBtn = document.createElement('button');
     selectBtn.className = 'favorite-select-btn';
     selectBtn.textContent = 'Выбрать';
@@ -54,12 +51,10 @@ function createFavoriteCard(originalCard) {
     return card;
 }
 
-// Обработчик для звёздочек
 document.querySelectorAll('.btn-favorite').forEach(btn => {
     const card = btn.closest('.character-card');
     const id = card.dataset.characterId;
 
-    // Обновление состояния звёздочки
     btn.classList.toggle('active', favorites.includes(id));
 
     btn.addEventListener('click', () => {
@@ -67,7 +62,7 @@ document.querySelectorAll('.btn-favorite').forEach(btn => {
 
         if(index === -1) {
             if(favorites.length >= 3) {
-                favorites.shift(); // Удаляем самый старый элемент
+                favorites.shift();
             }
             favorites.push(id);
         } else {
@@ -80,7 +75,6 @@ document.querySelectorAll('.btn-favorite').forEach(btn => {
     });
 });
 
-// Инициализация при загрузке
 updateFavorites();
 
 document.querySelectorAll('.btn-play').forEach(button => {

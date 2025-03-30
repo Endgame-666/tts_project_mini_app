@@ -142,10 +142,32 @@
             padding: 0 10px;
         }
 
+        .favorites-header {
+            display: flex;
+            justify-content: center; /* Центрирование по горизонтали */
+            align-items: center;
+            margin-bottom: 15px;
+            padding: 0 10px;
+        }
+
         .favorites-title {
-            color: #2C3E50;
-            font-size: 1.2em;
+            color: #E67E22;
+            background: linear-gradient(90deg, #E67E22, #FFA500);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 1.6em; /* Увеличенный размер шрифта */
             margin: 0;
+            padding: 0 15px;
+            text-align: center; /* Центрирование текста */
+            transition: transform 0.3s;
+            font-weight: 600; /* Полужирное начертание */
+            text-transform: uppercase; /* Опционально: заглавные буквы */
+            letter-spacing: 0.5px; /* Разрежение букв */
+        }
+
+        .favorites-title:hover {
+            transform: scale(1.05); /* Усиленная анимация */
+            text-shadow: 0 2px 4px rgba(230, 126, 34, 0.2); /* Добавим тень */
         }
 
         .favorite-card {
