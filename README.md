@@ -17,7 +17,7 @@ tts_project_mini_app/
 ```
 ## ❗️ Важные ссылки
 
-🔹 **Telegram-tts-bot **  
+🔹 **Telegram-tts-bot**  
 _Основной проект по синтезу речи с выбором голосов._  
 [GitHub: TTS Mini App](https://github.com/Endgame-666/tts_project_mini_app)
 
